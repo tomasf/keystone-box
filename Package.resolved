@@ -1,0 +1,51 @@
+{
+  "originHash" : "2c3aaaf0d6bae452a0efd4a770894ace95d92569512edbd65a37a52bb83cde13",
+  "pins" : [
+    {
+      "identity" : "helical",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Helical.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ad4b94ac2c8b9189c60bbfcf3bbf2233f9d845d3"
+      }
+    },
+    {
+      "identity" : "keystone",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Keystone.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "606462a369d54e4e216443b11044af73a4fcca78"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
+        "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "swiftscad",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/SwiftSCAD.git",
+      "state" : {
+        "revision" : "d874d042c45046f1f87b4e27bc27ddd292fa874a",
+        "version" : "0.7.1"
+      }
+    }
+  ],
+  "version" : 3
+}
