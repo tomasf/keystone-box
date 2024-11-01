@@ -1,13 +1,13 @@
 {
-  "originHash" : "2c3aaaf0d6bae452a0efd4a770894ace95d92569512edbd65a37a52bb83cde13",
+  "originHash" : "3085e3fd956013efa66f53e1a241be89d9c7e80b529a36c954680a64ca84813a",
   "pins" : [
     {
       "identity" : "helical",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Helical.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "ad4b94ac2c8b9189c60bbfcf3bbf2233f9d845d3"
+        "revision" : "409d5cbff76a12d579a87a9fa2ea56a4394330f8",
+        "version" : "0.1.1"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/tomasf/Keystone.git",
       "state" : {
         "branch" : "main",
-        "revision" : "606462a369d54e4e216443b11044af73a4fcca78"
+        "revision" : "54fda88a906aceace48dcaa73b80cdac86892fe9"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/SwiftSCAD.git",
       "state" : {
-        "revision" : "d874d042c45046f1f87b4e27bc27ddd292fa874a",
-        "version" : "0.7.1"
+        "revision" : "06d0fa1ee58b340ce288ded167e91dda02e11119",
+        "version" : "0.8.1"
       }
     }
   ],

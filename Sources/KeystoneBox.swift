@@ -51,7 +51,7 @@ struct KeystoneBox: Shape3D {
     let lidMountHoleDiameter = 5.0
     var lidMountPostSize: Double { frontPanelDepth - wallThickness }
     var lidMountInset: Double { wallThickness + lidMountPostSize / 2 }
-    let lidMountBolt = Bolt.hexSocketCountersunk(.m5, length: 12)
+    let lidMountBolt = Bolt.hexSocketCountersunk(.m5, length: 16)
 
     // Bottom mount
     let mountHoleDiameter = 4.6
@@ -67,6 +67,7 @@ struct KeystoneBox: Shape3D {
             lid
         }
         .forceRendered()
+        .usingOutputFormats(.scad, .stl)
         .named("keystone-box-\(slotCount)")
     }
 
@@ -76,7 +77,7 @@ struct KeystoneBox: Shape3D {
     }
 
     var innerShape: any Geometry2D {
-        EnvironmentReader { e in
+        readEnvironment { e in
             outerShape.offset(amount: -wallThickness - e.tolerance / 2, style: .round)
         }
     }
@@ -163,7 +164,7 @@ struct KeystoneBox: Shape3D {
                     .aligned(at: .centerX)
                     .subtracting {
                         Circle(radius: cableTieRampSize)
-                            .aligned(at: .origin)
+                            .aligned(at: .min)
                             .symmetry(over: .x)
                     }
                     .rounded(amount: cableTieRampRadius) {
@@ -188,7 +189,7 @@ struct KeystoneBox: Shape3D {
     }
 
     var lid: any Geometry3D {
-        EnvironmentReader { e in
+        readEnvironment { e in
             outerShape
                 .extruded(height: lidThickness - lidThicknessInset, bottomEdge: .chamfer(size: 0.6), method: .convexHull)
                 .adding {
