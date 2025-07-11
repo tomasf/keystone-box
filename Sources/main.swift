@@ -1,8 +1,11 @@
-import SwiftSCAD
+import Cadova
 
-save(environment: .defaultEnvironment.withTolerance(0.3)) {
+await Project {
     for slotCount in [1, 2, 3, 5, 8, 10, 12] {
-        KeystoneBox(slotCount: slotCount)
+        await Model("keystone-box-\(slotCount)") {
+            KeystoneBox(slotCount: slotCount)
+        }
     }
-    //KeystoneBox(slotCount: 3).assembled
+} environment: {
+    $0.tolerance = 0.3
 }

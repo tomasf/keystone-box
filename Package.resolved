@@ -1,13 +1,40 @@
 {
-  "originHash" : "3085e3fd956013efa66f53e1a241be89d9c7e80b529a36c954680a64ca84813a",
+  "originHash" : "d4f18b4a20ec6eab6e6f3591fffeddea2f448e118dc469d22470aa932c2feb3f",
   "pins" : [
+    {
+      "identity" : "cadova",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Cadova.git",
+      "state" : {
+        "revision" : "b2bdb81cd9b306b3b32e8d02adfae0b37548f09a",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "findfont",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/FindFont.git",
+      "state" : {
+        "revision" : "b9b687abad56844597f4e42c5da8f7d0ef9f80d5",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "freetype-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/freetype-spm.git",
+      "state" : {
+        "revision" : "b308b09b9d21215c522a73a38f670b7aca24843e",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "helical",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Helical.git",
       "state" : {
-        "revision" : "409d5cbff76a12d579a87a9fa2ea56a4394330f8",
-        "version" : "0.1.1"
+        "revision" : "ea90ed6390ce458be539d66bd513725600055563",
+        "version" : "0.2.0"
       }
     },
     {
@@ -15,8 +42,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Keystone.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "54fda88a906aceace48dcaa73b80cdac86892fe9"
+        "revision" : "d08101dd10fa0436db531b9e3cd381e6dad9f7d3",
+        "version" : "0.2.0"
+      }
+    },
+    {
+      "identity" : "manifold-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/manifold-swift.git",
+      "state" : {
+        "revision" : "63425e809ac19c9b317fdb3fae2c1f923f8900a2",
+        "version" : "0.2.1"
+      }
+    },
+    {
+      "identity" : "nodal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Nodal.git",
+      "state" : {
+        "revision" : "763efeebe6bf1c26958dcbb29661a9af45cced52",
+        "version" : "0.3.1"
       }
     },
     {
@@ -24,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "671108c96644956dddcd89dd59c203dcdb36cec7",
-        "version" : "1.1.4"
+        "revision" : "c1805596154bb3a265fd91b8ac0c4433b4348fb0",
+        "version" : "1.2.0"
       }
     },
     {
@@ -33,17 +78,26 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log.git",
       "state" : {
-        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
-        "version" : "1.6.1"
+        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
+        "version" : "1.6.3"
       }
     },
     {
-      "identity" : "swiftscad",
+      "identity" : "threemf",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/SwiftSCAD.git",
+      "location" : "https://github.com/tomasf/ThreeMF.git",
       "state" : {
-        "revision" : "06d0fa1ee58b340ce288ded167e91dda02e11119",
-        "version" : "0.8.1"
+        "revision" : "f4cc160e736bb414acdabb5d148dac0f8f8598e1",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "zip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tomasf/Zip.git",
+      "state" : {
+        "revision" : "4f0d993ea822c313acbe6be8b0d40e7cb5e3a217",
+        "version" : "2.1.0"
       }
     }
   ],

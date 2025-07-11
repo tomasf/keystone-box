@@ -1,4 +1,4 @@
-import SwiftSCAD
+import Cadova
 import Helical
 import Keystone
 
@@ -62,18 +62,18 @@ struct KeystoneBox: Shape3D {
     )}
 
     var body: any Geometry3D {
-        Stack(.x, spacing: 4, alignment: .bottom) {
-            box
-            lid
-        }
-        .forceRendered()
-        .usingOutputFormats(.scad, .stl)
-        .named("keystone-box-\(slotCount)")
+        box
+            .colored(.powderBlue)
+            .inPart(named: "box")
+        lid
+            .translated(x: outerSize.x + 5)
+            .colored(.paleGreen)
+            .inPart(named: "lid")
     }
 
     var outerShape: any Geometry2D {
         Rectangle(outerSize.xy)
-            .roundingRectangleCorners(radius: lidMountInset)
+            .applyingEdgeProfile(.fillet(radius: lidMountInset))
     }
 
     var innerShape: any Geometry2D {
@@ -87,13 +87,13 @@ struct KeystoneBox: Shape3D {
             Rectangle([frontPanelDepth, outerSize.y])
 
             Rectangle(lidMountPostSize)
-                .roundingRectangleCorners(.bottomLeft, radius: lidMountPostSize / 2)
+                .applyingEdgeProfile(.fillet(radius: lidMountPostSize / 2), to: .bottomLeft)
                 .aligned(at: .right, .top)
                 .translated(x: outerSize.x - wallThickness, y: outerSize.y / 2 - wallThickness)
                 .symmetry(over: .y)
                 .translated(y: outerSize.y / 2)
         }
-        .rounded(amount: innerBodyCornerRadius)
+        .rounded(radius: innerBodyCornerRadius)
     }
 
     var box: any Geometry3D {
@@ -143,8 +143,7 @@ struct KeystoneBox: Shape3D {
                     .extruded(
                         height: strainReliefThickness + cableDiameter/2 - 1,
                         topEdge: .fillet(radius: 2),
-                        bottomEdge: .fillet(radius: cableDiameter / 2),
-                        method: .convexHull
+                        bottomEdge: .fillet(radius: cableDiameter / 2)
                     )
                     .translated(z: slotCenterZ - cableDiameter / 2 - strainReliefThickness)
                     .adding {
@@ -167,7 +166,7 @@ struct KeystoneBox: Shape3D {
                             .aligned(at: .min)
                             .symmetry(over: .x)
                     }
-                    .rounded(amount: cableTieRampRadius) {
+                    .rounded(outsideRadius: cableTieRampRadius) {
                         Rectangle(x: cableTieRampRadius * 2, y: cableTieRampSize).aligned(at: .centerX)
                     }
                     .extruded(height: strainReliefFullLength)
@@ -191,15 +190,15 @@ struct KeystoneBox: Shape3D {
     var lid: any Geometry3D {
         readEnvironment { e in
             outerShape
-                .extruded(height: lidThickness - lidThicknessInset, bottomEdge: .chamfer(size: 0.6), method: .convexHull)
+                .extruded(height: lidThickness - lidThicknessInset, bottomEdge: .chamfer(depth: 0.6))
                 .adding {
                     innerShape.offset(amount: -e.tolerance / 2, style: .round)
                         .extruded(height: lidThickness)
 
                     // Back wall
-                    Box([wallThickness * 2, innerSize.y - 2 * lidMountPostSize - 4, outerSize.z - slotCenterZ])
+                    Box([wallThickness * 2, innerSize.y - 2 * lidMountPostSize - 2 * innerBodyCornerRadius, outerSize.z - slotCenterZ])
                         .aligned(at: .centerY)
-                        .roundingBoxCorners(.top, axis: .x, radius: wallThickness)
+                        .applyingEdgeProfile(.fillet(radius: wallThickness), to: .top, along: .x)
                         .translated(
                             x: outerSize.x - wallThickness * 2,
                             y: outerSize.y / 2,
@@ -234,7 +233,7 @@ struct KeystoneBox: Shape3D {
         }
     }
 
-    @UnionBuilder3D
+    @GeometryBuilder3D
     var assembled: any Geometry3D {
         box
             .adding {
@@ -244,8 +243,5 @@ struct KeystoneBox: Shape3D {
                     .translated(z: outerSize.z + lidThickness - lidThicknessInset + 0.15)
             }
             .aligned(at: .centerXY)
-            //.crossSectioned(axis: .y)
-            .forceRendered()
-            .named("keystone-box-\(slotCount)-assembled")
     }
 }
