@@ -2,7 +2,9 @@ import Cadova
 import Helical
 import Keystone
 
-struct KeystoneBox: Shape3D {
+struct KeystoneBox: Geometry3D {
+    @Environment(\.tolerance) var tolerance
+
     let wallThickness = 2.0
     let bottomThickness = 2.0
 
@@ -41,7 +43,7 @@ struct KeystoneBox: Shape3D {
     var frontPanelDepth: Double { keystoneSize.z }
 
     // Strain relief
-    let cableDiameter = 8.0
+    var cableDiameter = 8.0
     let strainReliefHoleLength = 6.0
     let strainReliefThickness = 4.0
     let cableTieRampSize = 8.0
@@ -64,22 +66,20 @@ struct KeystoneBox: Shape3D {
     var body: any Geometry3D {
         box
             .colored(.powderBlue)
-            .inPart(named: "box")
+            .inPart(name: "box")
         lid
             .translated(x: outerSize.x + 5)
             .colored(.paleGreen)
-            .inPart(named: "lid")
+            .inPart(name: "lid")
     }
 
     var outerShape: any Geometry2D {
         Rectangle(outerSize.xy)
-            .applyingEdgeProfile(.fillet(radius: lidMountInset))
+            .cuttingEdgeProfile(.fillet(radius: lidMountInset))
     }
 
     var innerShape: any Geometry2D {
-        readEnvironment { e in
-            outerShape.offset(amount: -wallThickness - e.tolerance / 2, style: .round)
-        }
+        outerShape.offset(amount: -wallThickness - tolerance / 2, style: .round)
     }
 
     var innerBodyShape: any Geometry2D {
@@ -87,7 +87,7 @@ struct KeystoneBox: Shape3D {
             Rectangle([frontPanelDepth, outerSize.y])
 
             Rectangle(lidMountPostSize)
-                .applyingEdgeProfile(.fillet(radius: lidMountPostSize / 2), to: .bottomLeft)
+                .cuttingEdgeProfile(.fillet(radius: lidMountPostSize / 2), on: .bottomLeft)
                 .aligned(at: .right, .top)
                 .translated(x: outerSize.x - wallThickness, y: outerSize.y / 2 - wallThickness)
                 .symmetry(over: .y)
@@ -158,17 +158,18 @@ struct KeystoneBox: Shape3D {
                     ($0 + $1) / 2
                 }
 
-                // Cable tie ramps
-                Rectangle(x: cableTieRampSize * 2, y: cableTieRampSize)
+                // Cable tie ramps, with only the pointed tip between the two curves rounded
+                let ramp = Rectangle(x: cableTieRampSize * 2, y: cableTieRampSize)
                     .aligned(at: .centerX)
                     .subtracting {
                         Circle(radius: cableTieRampSize)
                             .aligned(at: .min)
                             .symmetry(over: .x)
                     }
-                    .rounded(outsideRadius: cableTieRampRadius) {
-                        Rectangle(x: cableTieRampRadius * 2, y: cableTieRampSize).aligned(at: .centerX)
-                    }
+                let rampTip = Rectangle(x: cableTieRampRadius * 2, y: cableTieRampSize).aligned(at: .centerX)
+
+                ramp.subtracting(rampTip)
+                    .adding { ramp.rounded(outsideRadius: cableTieRampRadius).intersecting(rampTip) }
                     .extruded(height: strainReliefFullLength)
                     .rotated(x: 90°, z: 90°)
                     .aligned(at: .maxX, .centerY)
@@ -188,49 +189,47 @@ struct KeystoneBox: Shape3D {
     }
 
     var lid: any Geometry3D {
-        readEnvironment { e in
-            outerShape
-                .extruded(height: lidThickness - lidThicknessInset, bottomEdge: .chamfer(depth: 0.6))
-                .adding {
-                    innerShape.offset(amount: -e.tolerance / 2, style: .round)
-                        .extruded(height: lidThickness)
+        outerShape
+            .extruded(height: lidThickness - lidThicknessInset, bottomEdge: .chamfer(depth: 0.6))
+            .adding {
+                innerShape.offset(amount: -tolerance / 2, style: .round)
+                    .extruded(height: lidThickness)
 
-                    // Back wall
-                    Box([wallThickness * 2, innerSize.y - 2 * lidMountPostSize - 2 * innerBodyCornerRadius, outerSize.z - slotCenterZ])
-                        .aligned(at: .centerY)
-                        .applyingEdgeProfile(.fillet(radius: wallThickness), to: .top, along: .x)
-                        .translated(
-                            x: outerSize.x - wallThickness * 2,
-                            y: outerSize.y / 2,
-                            z: lidThicknessInset
-                        )
-                }
-                .subtracting {
-                    // Countersunk mount holes
-                    lidMountBolt.clearanceHole(recessedHead: true)
-                        .translated(z: 0.2)
-                        .translated(x: outerSize.x / 2 - lidMountInset, y: outerSize.y / 2 - lidMountInset)
-                        .symmetry(over: .xy)
-                        .translated(x: outerSize.x / 2, y: outerSize.y / 2)
+                // Back wall
+                Box([wallThickness * 2, innerSize.y - 2 * lidMountPostSize - 2 * innerBodyCornerRadius, outerSize.z - slotCenterZ])
+                    .aligned(at: .centerY)
+                    .cuttingEdgeProfile(.fillet(radius: wallThickness), on: .top, along: .x)
+                    .translated(
+                        x: outerSize.x - wallThickness * 2,
+                        y: outerSize.y / 2,
+                        z: lidThicknessInset
+                    )
+            }
+            .subtracting {
+                // Countersunk mount holes
+                lidMountBolt.clearanceHole(entry: .recessedHead)
+                    .translated(z: 0.2)
+                    .translated(x: outerSize.x / 2 - lidMountInset, y: outerSize.y / 2 - lidMountInset)
+                    .symmetry(over: .xy)
+                    .translated(x: outerSize.x / 2, y: outerSize.y / 2)
 
-                    Cylinder(diameter: cableDiameter, height: outerSize.x)
-                        .rotated(y: 90°)
-                        .translated(x: frontPanelDepth, z: outerSize.z + lidThickness - lidThicknessInset - slotCenterZ)
-                        .distributed(at: slotYOffsets, along: .y)
+                Cylinder(diameter: cableDiameter, height: outerSize.x)
+                    .rotated(y: 90°)
+                    .translated(x: frontPanelDepth, z: outerSize.z + lidThickness - lidThicknessInset - slotCenterZ)
+                    .distributed(at: slotYOffsets, along: .y)
 
-                    Box([wallThickness + e.tolerance, outerSize.y, outerSize.z])
-                        .aligned(at: .maxX)
-                        .translated(x: outerSize.x, z: lidThickness - lidThicknessInset)
-                        .subtracting {
-                            Cylinder(diameter: cableDiameter - e.tolerance, height: outerSize.x)
-                                .rotated(y: 90°)
-                                .clonedAt(z: -outerSize.z)
-                                .convexHull()
-                                .translated(x: frontPanelDepth, z: slotCenterZ)
-                                .distributed(at: slotYOffsets, along: .y)
-                        }
-                }
-        }
+                Box([wallThickness + tolerance, outerSize.y, outerSize.z])
+                    .aligned(at: .maxX)
+                    .translated(x: outerSize.x, z: lidThickness - lidThicknessInset)
+                    .subtracting {
+                        Cylinder(diameter: cableDiameter - tolerance, height: outerSize.x)
+                            .rotated(y: 90°)
+                            .clonedAt(z: -outerSize.z)
+                            .convexHull()
+                            .translated(x: frontPanelDepth, z: slotCenterZ)
+                            .distributed(at: slotYOffsets, along: .y)
+                    }
+            }
     }
 
     @GeometryBuilder3D
