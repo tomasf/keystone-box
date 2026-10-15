@@ -13,7 +13,7 @@ await Project {
         @Parameter("Cable diameter", in: 5...12, step: 0.5, unit: "mm", description: "Diameter of the network cables")
         var cableDiameter = 8.0
 
-        @Parameter("Tolerance", in: 0...0.6, step: 0.05, unit: "mm", description: "Extra clearance for the modules and the lid")
+        @Parameter("Tolerance", in: 0...0.6, step: 0.05, unit: "mm", description: "Extra clearance for the modules and the lid. The default usually works fine.")
         var tolerance = 0.3
 
         Environment {
