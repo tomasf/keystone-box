@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Apus.git",
       "state" : {
-        "revision" : "d2de751a258001e32823e6dd70ec9a6f52ee72e4",
-        "version" : "0.2.0"
+        "revision" : "e1d195ff1ecbfd038b58bf76c3eb770c91bcab90",
+        "version" : "0.2.1"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
         "branch" : "dev",
-        "revision" : "769163eeb553324d24c0223b466967acf0416a5d"
+        "revision" : "9cffe0697a3d790e4217eb39844d7858dd6dfb5e"
       }
     },
     {
