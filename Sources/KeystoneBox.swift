@@ -26,7 +26,7 @@ struct KeystoneBox: Geometry3D {
     let innerBodyCornerRadius = 4.0
 
     let slotCount: Int
-    let slotSpacing = 22.0
+    var slotSpacing = 22.0
     let slotSideMargin = 20.0
     let slotSpaceLength = 50.0
     let slotZOffset = 10.0
@@ -65,11 +65,9 @@ struct KeystoneBox: Geometry3D {
 
     var body: any Geometry3D {
         box
-            .colored(.powderBlue)
             .inPart(name: "box")
         lid
             .translated(x: outerSize.x + 5)
-            .colored(.paleGreen)
             .inPart(name: "lid")
     }
 
