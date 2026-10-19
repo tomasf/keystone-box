@@ -44,6 +44,7 @@ struct KeystoneBox: Geometry3D {
 
     // Strain relief
     var cableDiameter = 8.0
+    var cableHoleDiameter: Double { cableDiameter + tolerance }
     let strainReliefHoleLength = 6.0
     let strainReliefThickness = 4.0
     let cableTieRampSize = 8.0
@@ -176,7 +177,7 @@ struct KeystoneBox: Geometry3D {
             }
             .subtracting {
                 // Cable cutouts
-                Circle(diameter: cableDiameter)
+                Circle(diameter: cableHoleDiameter)
                     .clonedAt(x: -outerSize.x)
                     .convexHull()
                     .extruded(height: outerSize.x)
@@ -211,7 +212,7 @@ struct KeystoneBox: Geometry3D {
                     .symmetry(over: .xy)
                     .translated(x: outerSize.x / 2, y: outerSize.y / 2)
 
-                Cylinder(diameter: cableDiameter, height: outerSize.x)
+                Cylinder(diameter: cableHoleDiameter, height: outerSize.x)
                     .rotated(y: 90°)
                     .translated(x: frontPanelDepth, z: outerSize.z + lidThickness - lidThicknessInset - slotCenterZ)
                     .distributed(at: slotYOffsets, along: .y)
@@ -220,7 +221,7 @@ struct KeystoneBox: Geometry3D {
                     .aligned(at: .maxX)
                     .translated(x: outerSize.x, z: lidThickness - lidThicknessInset)
                     .subtracting {
-                        Cylinder(diameter: cableDiameter - tolerance, height: outerSize.x)
+                        Cylinder(diameter: cableHoleDiameter - tolerance, height: outerSize.x)
                             .rotated(y: 90°)
                             .clonedAt(z: -outerSize.z)
                             .convexHull()
