@@ -9,4 +9,4 @@ The box includes four mounting holes on the bottom, allowing it to be easily ins
 This model is fully parametric and written in [Cadova](https://github.com/tomasf/Cadova), allowing you to easily adjust parameters in the source code to fit your exact needs.
 
 This model uses [Cadova](https://github.com/tomasf/Cadova), [Helical](https://github.com/tomasf/Helical) and [my Keystone library](https://github.com/tomasf/Keystone).
-Also available on [Printables](https://www.printables.com/model/1035553-keystone-box).
+Also available on [MakerWorld](https://makerworld.com/en/models/1896199-keystone-box).
