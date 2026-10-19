@@ -4,7 +4,7 @@ name: Customizer
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -25,7 +25,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    # Cadova's dev branch until 1.1.0 is out; then use the tag that matches Package.swift
-    - uses: tomasf/Cadova/Actions/BuildCustomizer@dev
+    - uses: tomasf/Cadova/Actions/BuildCustomizer@1.1.0
     - id: deployment
       uses: actions/deploy-pages@v4

@@ -1,31 +1,13 @@
 {
-  "originHash" : "3b7e8c9a974f9ce3f24318fa7d70de078f8fe7ac7771ae907404684cbec73b35",
+  "originHash" : "a0a6611b9f5e6f3af33d649a536b7635b44d42466e7df4cf5bde605c0afebfb4",
   "pins" : [
-    {
-      "identity" : "apus",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/Apus.git",
-      "state" : {
-        "revision" : "e1d195ff1ecbfd038b58bf76c3eb770c91bcab90",
-        "version" : "0.2.1"
-      }
-    },
     {
       "identity" : "cadova",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Cadova.git",
       "state" : {
-        "branch" : "dev",
-        "revision" : "f6bcb8c278aed8d844701138573ad62ad76c41aa"
-      }
-    },
-    {
-      "identity" : "cadovalivelink",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/CadovaLiveLink.git",
-      "state" : {
-        "revision" : "4e6cdee60cecf1cde2204578485445533ad0324b",
-        "version" : "0.2.1"
+        "revision" : "f70ef6ad91472f6870b528ce2c97d3e3d9cf6120",
+        "version" : "1.1.0"
       }
     },
     {
@@ -42,53 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tomasf/Keystone.git",
       "state" : {
-        "branch" : "dev",
-        "revision" : "51f0d91348519f2af3c000af04b4c249745c8060"
-      }
-    },
-    {
-      "identity" : "manifold-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/manifold-swift.git",
-      "state" : {
-        "revision" : "3f92d58a33bbc9b18c4357e33cdd56891b76eb62",
-        "version" : "1.1.3"
-      }
-    },
-    {
-      "identity" : "nodal",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/Nodal.git",
-      "state" : {
-        "revision" : "18b66a53d97efff782b8b7d82c8c085be9a8cc54",
-        "version" : "1.0.3"
-      }
-    },
-    {
-      "identity" : "pelagos",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/Pelagos.git",
-      "state" : {
-        "revision" : "40118bfad25b83d46bf2a9b25327ba7189108880",
-        "version" : "0.1.4"
-      }
-    },
-    {
-      "identity" : "threemf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/ThreeMF.git",
-      "state" : {
-        "revision" : "bb24e8176db3f9c82ddf43c3f224eb95c831818e",
-        "version" : "0.3.3"
-      }
-    },
-    {
-      "identity" : "zip",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tomasf/Zip.git",
-      "state" : {
-        "revision" : "83b635cb5b9a7372c1cabbd58af159db63969c6c",
-        "version" : "2.1.3"
+        "revision" : "5bb640085d58c8f7b35dd40b346336520e7a0a3e",
+        "version" : "0.3.0"
       }
     }
   ],
